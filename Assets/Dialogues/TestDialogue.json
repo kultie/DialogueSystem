@@ -1,0 +1,38 @@
+[
+    {
+        "command": "message_showtext",
+        "arguments": {
+            "message": "Hello world!"
+        }
+    },
+    {
+        "command": "message_choices",
+        "arguments": {
+            "choices": [
+                {
+                    "label": "fish",
+                    "list": [
+                        {
+                            "command": "message_showtext",
+                            "arguments": {
+                                "message": "I like fish!"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "beef",
+                    "list": [
+                        {
+                            "command": "message_showtext",
+                            "arguments": {
+                                "message": "I like beef!"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "message": "What would you like?"
+        }
+    }
+]
