@@ -10,6 +10,7 @@ namespace Kultie.DialogueSystem.Interpreter
         static bool DebugMode = true;
 
         const string messageType = "message";
+        const string dataControlType = "data";
 
         JSONArray commands;
 
@@ -32,6 +33,8 @@ namespace Kultie.DialogueSystem.Interpreter
             {
                 case messageType:
                     return MessageInterpreters.functionMap[functionName];
+                case dataControlType:
+                    return DataControlInterpreters.functionMap[functionName];
                 default:
                     return null;
             }

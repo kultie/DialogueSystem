@@ -6,12 +6,34 @@
         }
     },
     {
+        "command": "data_local",
+        "arguments": {
+            "food": {
+                "operation": "set",
+                "value": 1
+            },
+            "money": {
+                "operation": "add",
+                "value": 1
+            }
+        }
+    },
+    {
         "command": "message_choices",
         "arguments": {
             "choices": [
                 {
                     "label": "fish",
                     "list": [
+                        {
+                            "command": "data_local",
+                            "arguments": {
+                                "food": {
+                                    "operation": "sub",
+                                    "value": 1
+                                }
+                            }
+                        },
                         {
                             "command": "message_showtext",
                             "arguments": {
@@ -24,6 +46,15 @@
                     "label": "beef",
                     "list": [
                         {
+                            "command": "data_local",
+                            "arguments": {
+                                "food": {
+                                    "operation": "add",
+                                    "value": 1
+                                }
+                            }
+                        },
+                        {
                             "command": "message_showtext",
                             "arguments": {
                                 "message": "I like beef!"
@@ -34,7 +65,7 @@
             ],
             "message": "What would you like?"
         }
-    }, 
+    },
     {
         "command": "message_showtext",
         "arguments": {

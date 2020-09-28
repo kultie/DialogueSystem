@@ -12,6 +12,7 @@ namespace Kultie.DialogueSystem
         DialogueBranch rootBranch;
         DialogueBranch currentBranch;
 
+        private Dictionary<string, long> eventVariables = new Dictionary<string, long>();
         private void Awake()
         {
             interpreter = new Interpreter.DialogueInterpreter();
@@ -41,6 +42,24 @@ namespace Kultie.DialogueSystem
                 }
                 currentBranch.Process();
             }
+        }
+
+        public void SetEventVariables(string key, long value)
+        {
+            eventVariables[key] = value;
+            foreach (KeyValuePair<string, long> var in eventVariables)
+            {
+                Debug.Log(var.Key + ": " + var.Value);
+            }
+        }
+
+        public long GetEventVariables(string key)
+        {
+            if (!eventVariables.TryGetValue(key, out long value))
+            {
+                eventVariables[key] = 0;
+            }
+            return eventVariables[key];
         }
     }
 }
