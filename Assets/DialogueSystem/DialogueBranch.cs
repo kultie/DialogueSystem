@@ -22,29 +22,52 @@ namespace Kultie.DialogueSystem
             this.fallbackBranch = fallbackBranch;
         }
 
-        public DialogueBranch Process()
+        public void Process()
         {
             //While interpreter return null continue process next command
             if (currentIndex >= commandList.Count)
             {
-                return fallbackBranch;
+                if (fallbackBranch != null)
+                {
+                    evt.ChangeBranch(fallbackBranch);
+                }
+                return;
             }
             var result = interpreter.RunCommand(commandList[currentIndex], evt);
+
             while (result == null)
             {
                 currentIndex++;
                 if (currentIndex >= commandList.Count)
                 {
-                    return fallbackBranch;
+                    if (fallbackBranch != null)
+                    {
+                        evt.ChangeBranch(fallbackBranch);
+                    }
+                    return;
                 }
                 result = interpreter.RunCommand(commandList[currentIndex], evt);
             }
-            if (result is JSONArray)
+
+            if (result is DialogueChoiceModel)
             {
-                return new DialogueBranch(evt, (JSONArray)result, this, interpreter);
+                DialogueManager.ShowChoice((DialogueChoiceModel)result, evt);
+            }
+            else if (result is DialogueModel)
+            {
+                DialogueManager.ShowWindow((DialogueModel)result, evt);
+            }
+
+            else if (result is JSONArray)
+            {
+                evt.ChangeBranch((JSONArray)result);
             }
             currentIndex++;
-            return this;
+        }
+
+        public bool isFinished()
+        {
+            return currentIndex >= commandList.Count;
         }
     }
 }

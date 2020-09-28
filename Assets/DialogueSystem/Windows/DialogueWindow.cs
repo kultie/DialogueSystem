@@ -10,8 +10,12 @@ namespace Kultie.DialogueSystem
     {
         [SerializeField]
         Text text;
+        //[SerializeField]
+        //Choice Window
+        //[SerializeField]
+        //Input window
         DialogueModel model;
-        public void Show(DialogueModel model)
+        public void Show(DialogueModel model, DialogueEvent evt)
         {
             this.model = model;
             text.text = model.message;
@@ -27,6 +31,15 @@ namespace Kultie.DialogueSystem
     public class DialogueModel
     {
         public string message;
+    }
+
+    public class DialogueChoiceModel : DialogueModel
+    {
         public JSONArray choices;
+    }
+    public enum InputType { Text, Number }
+    public class DialogueInputModel : DialogueModel
+    {
+        public InputType inputType;
     }
 }

@@ -19,16 +19,15 @@ namespace Kultie.DialogueSystem.Interpreter
         private static object ShowChoice(JSONNode args, DialogueEvent evt)
         {
             JSONArray choices = args["choices"].AsArray;
-            return new DialogueModel()
+            return new DialogueChoiceModel()
             {
                 message = args["message"],
-                choices = args["choices"].AsArray
+                choices = choices
             };
         }
 
         private static object ShowText(JSONNode args, DialogueEvent evt)
         {
-
             return new DialogueModel()
             {
                 message = args["message"]

@@ -34,5 +34,11 @@
             ],
             "message": "What would you like?"
         }
-    }
+    }, 
+    {
+        "command": "message_showtext",
+        "arguments": {
+            "message": "Excelent choice!!"
+        }
+    },
 ]

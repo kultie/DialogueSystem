@@ -9,23 +9,37 @@ namespace Kultie.DialogueSystem
         [SerializeField]
         TextAsset dialogueData;
         private Interpreter.DialogueInterpreter interpreter;
+        DialogueBranch rootBranch;
         DialogueBranch currentBranch;
 
         private void Awake()
         {
             interpreter = new Interpreter.DialogueInterpreter();
-            currentBranch = new DialogueBranch(this, JSON.Parse(dialogueData.text).AsArray, null, interpreter);
+            rootBranch = new DialogueBranch(this, JSON.Parse(dialogueData.text).AsArray, null, interpreter);
+            currentBranch = rootBranch;
+        }
+
+        public void ChangeBranch(JSONArray data)
+        {
+            currentBranch = new DialogueBranch(this, data, currentBranch, interpreter);
+            currentBranch.Process();
+        }
+
+        public void ChangeBranch(DialogueBranch branch)
+        {
+            currentBranch = branch;
+            currentBranch.Process();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                currentBranch = currentBranch.Process();
-                if (currentBranch == null)
+                if (rootBranch.isFinished())
                 {
-                    Debug.Log("Dialogue branch has been completed");
+                    Debug.Log("Finish event dialogue");
                 }
+                currentBranch.Process();
             }
         }
     }
