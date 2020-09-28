@@ -13,7 +13,7 @@ namespace Kultie.DialogueSystem.Interpreter
 
         JSONArray commands;
 
-        private object RunCommand(JSONNode command)
+        public object RunCommand(JSONNode command, DialogueEvent evt)
         {
             string commandName = command["command"].Value;
             string[] command_args = commandName.Split('_');

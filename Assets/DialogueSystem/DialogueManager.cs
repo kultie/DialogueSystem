@@ -10,38 +10,6 @@ namespace Kultie.DialogueSystem
         [SerializeField]
         DialogueWindow dialogueWindow;
 
-        DialogueEvent evt;
-        Dictionary<int, int> depthMap = new Dictionary<int, int>();
-        private int currentIndex;
-        public void LoadCommand(JSONArray commands, DialogueEvent evt)
-        {
-            this.commands = commands;
-            this.evt = evt;
-        }
-
-        public void StartDialogue()
-        {
-            currentIndex = 0;
-            depthMap[currentIndex] = 0;
-        }
-
-        JSONNode CurrentDialogueNode()
-        {
-            return commands[currentIndex];
-        }
-
-        public object ProgressNext()
-        {
-            if (currentIndex >= commands.Count)
-            {
-                return null;
-            }
-            JSONNode current = CurrentDialogueNode();
-            currentIndex++;
-            return RunCommand(current);
-        }
-
-
         private void Awake()
         {
             Instance = this;
